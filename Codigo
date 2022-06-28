@@ -1,0 +1,42 @@
+using System.Windows.Forms;
+
+namespace Ziur.UI.Win.Forms.Reports
+{
+    public partial class ReportInventarioExistencias : Ziur.UI.Win.Forms.Reports.ReportInventarioLotes
+    {
+        public ReportInventarioExistencias() :
+            base(1, false, 500)
+        {
+            InitializeComponent();
+
+            General.AddColumnValidateEmail(gridBuscar, true);
+        }
+
+        private void gridBuscar_InitializeLayout(object sender, Infragistics.Win.UltraWinGrid.InitializeLayoutEventArgs e)
+        {
+            e.Layout.Bands[0].SortedColumns.Add("NomInvCompleto", false, true);
+            e.Layout.GroupByBox.Hidden = true;
+            e.Layout.Bands[0].Columns["CodLote"].Hidden = false; 
+            e.Layout.Bands[0].Columns["CodLote"].ExcludeFromColumnChooser = Infragistics.Win.UltraWinGrid.ExcludeFromColumnChooser.True;
+            e.Layout.Bands[0].Columns["NomLote"].ExcludeFromColumnChooser = Infragistics.Win.UltraWinGrid.ExcludeFromColumnChooser.True;
+        }
+
+        protected internal override void ConvertEnterInTab(object sender, KeyPressEventArgs e)
+        {
+            base.ConvertEnterInTab(sender, e);
+        }
+
+        private void ClickControls(object sender, MouseEventArgs e)
+        {
+            if (!General.enPropUsuario)
+                return;
+
+            base.propiedadesControlesPorUsuario(sender);
+        }
+
+        private void VistaPrevia2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+    }
+}
